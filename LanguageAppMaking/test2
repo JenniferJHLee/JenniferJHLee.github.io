@@ -60,3 +60,6 @@ generate_question()
 
 # Start the main event loop
 window.mainloop()
+
+#corret or incorrect should show before going to the next question
+#add a 2 second pause between questions

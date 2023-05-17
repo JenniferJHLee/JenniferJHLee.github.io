@@ -1,6 +1,4 @@
-# JenniferJHLee.github.io
 
-<!DOCTYPE html>
 <html>
 <head>
 <style>

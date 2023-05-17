@@ -1,1 +1,69 @@
+import tkinter as tk
+import random
+
+# Define the English and Korean sentences
+sentences = [
+    ("Hello", "안녕하세요"),
+    ("How are you?", "어떻게 지내세요?"),
+    ("What is your name?", "이름이 뭐에요?"),
+    ("I like cats", "나는 고양이를 좋아해요")
+]
+
+def check_match():
+    # Check if the selected sentences match
+    selected_indices = list(enumerate(button_states))
+    selected_indices = [index for index, state in selected_indices if state == 1]
+
+    if len(selected_indices) == 2:
+        index1, index2 = selected_indices
+        if sentences[index1][1] == sentences[index2][1]:
+            feedback_label.config(text="Correct!")
+        else:
+            feedback_label.config(text="Incorrect!")
+
+        reset_selections()
+
+def reset_selections():
+    # Reset the button states and update the text
+    for i in range(len(button_states)):
+        button_states[i] = 0
+        buttons[i].config(text="")
+
+def select_sentence(index):
+    # Select the sentence and update the button text
+    if button_states[index] == 1:
+        button_states[index] = 0
+        buttons[index].config(text="")
+    else:
+        button_states[index] = 1
+        buttons[index].config(text=sentences[index][0])
+
+# Create the main window
+window = tk.Tk()
+window.title("Sentence Matching Game")
+
+# Shuffle the sentences
+random.shuffle(sentences)
+
+# Create the buttons
+buttons = []
+button_states = [0] * len(sentences)
+for i, sentence in enumerate(sentences):
+    button = tk.Button(window, text="", width=30, height=3, command=lambda i=i: select_sentence(i))
+    button.grid(row=i, column=0, padx=10, pady=5)
+    buttons.append(button)
+
+# Create the "Check" button
+check_button = tk.Button(window, text="Check", command=check_match)
+check_button.grid(row=len(sentences), column=0, padx=10, pady=5)
+
+# Create a label for feedback
+feedback_label = tk.Label(window, text="")
+feedback_label.grid(row=len(sentences) + 1, column=0, padx=10, pady=5)
+
+# Start the main event loop
+window.mainloop()
+
+# Doesn't show Korean texts, clicking turns blank button to English letters and vice versa.
+# check button doesn't work
 
